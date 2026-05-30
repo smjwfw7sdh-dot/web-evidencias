@@ -1,1 +1,35 @@
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Evidencias - Las Rastras</title>
+    <style>
+        body { font-family: sans-serif; background: #FDF6E2; padding: 15px; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 12px; border: 3px solid #502314; }
+        select, input { width: 100%; padding: 15px; margin: 10px 0; border: 2px solid #502314; border-radius: 8px; font-size: 16px; }
+        .btn-main { width: 100%; padding: 15px; background: #F47321; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .btn-admin { display: none; width: 100%; padding: 15px; margin-top: 10px; background: #FFB81C; color: #502314; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📦 Control de Evidencias</h2>
+        <label>Responsable:</label>
+        <select id="responsable" onchange="verificarAdmin()">
+            <option value="user">Selecciona tu nombre...</option>
+            <option value="admin">Christopher López / Matías Pizarro (Admin)</option>
+            <option value="user">Yennifer / Paola / Ivannia / Ignacia</option>
+        </select>
+        <input type="text" id="nPedido" placeholder="Número de Pedido">
+        <button class="btn-main" onclick="alert('Registro guardado')">REGISTRAR EVIDENCIA</button>
+        <button id="btnExport" class="btn-admin" onclick="alert('Exportando CSV...')">📥 EXPORTAR CSV</button>
+    </div>
+    <script>
+        function verificarAdmin() {
+            const esAdmin = document.getElementById("responsable").value === "admin";
+            document.getElementById("btnExport").style.display = esAdmin ? "block" : "none";
+        }
+    </script>
+</body>
+</html>
