@@ -5,31 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control de Evidencias - Las Rastras</title>
     <style>
-        body { font-family: sans-serif; background: #FDF6E2; padding: 15px; }
+        body { font-family: sans-serif; background: #FDF6E2; padding: 20px; }
         .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 12px; border: 3px solid #502314; }
-        select, input { width: 100%; padding: 15px; margin: 10px 0; border: 2px solid #502314; border-radius: 8px; font-size: 16px; }
-        .btn-main { width: 100%; padding: 15px; background: #F47321; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .btn-admin { display: none; width: 100%; padding: 15px; margin-top: 10px; background: #FFB81C; color: #502314; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin: 10px 0; }
+        .btn-int { padding: 15px; border: 2px solid #502314; background: #EEE; cursor: pointer; font-weight: bold; border-radius: 8px; }
+        .selected { background: #FFB81C !important; color: #502314; }
+        input, button { width: 100%; padding: 15px; margin: 5px 0; border-radius: 8px; border: 2px solid #502314; font-size: 16px; }
+        .btn-reg { background: #F47321; color: white; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>📦 Control de Evidencias</h2>
-        <label>Responsable:</label>
-        <select id="responsable" onchange="verificarAdmin()">
-            <option value="user">Selecciona tu nombre...</option>
-            <option value="admin">Christopher López / Matías Pizarro (Admin)</option>
-            <option value="user">Yennifer / Paola / Ivannia / Ignacia</option>
-        </select>
-        <input type="text" id="nPedido" placeholder="Número de Pedido">
-        <button class="btn-main" onclick="alert('Registro guardado')">REGISTRAR EVIDENCIA</button>
-        <button id="btnExport" class="btn-admin" onclick="alert('Exportando CSV...')">📥 EXPORTAR CSV</button>
+        <h2>📦 Evidencias Delivery</h2>
+        <input type="text" id="nPedido" placeholder="N° Pedido o Nombre">
+        
+        <label>Selecciona el Integrador:</label>
+        <div class="grid">
+            <button class="btn-int" onclick="seleccionar('PedidosYa', this)">P.Ya</button>
+            <button class="btn-int" onclick="seleccionar('Rappi', this)">Rappi</button>
+            <button class="btn-int" onclick="seleccionar('Uber', this)">Uber</button>
+        </div>
+        
+        <button class="btn-reg" onclick="registrar()">REGISTRAR Y ABRIR DRIVE</button>
     </div>
+
     <script>
-        function verificarAdmin() {
-            const esAdmin = document.getElementById("responsable").value === "admin";
-            document.getElementById("btnExport").style.display = esAdmin ? "block" : "none";
+        const LINKS = {
+            "PedidosYa": "https://drive.google.com/drive/folders/1OzFJMbSY6xZZXGGq--sUJVqgkLX4tT_D",
+            "Rappi": "https://drive.google.com/drive/folders/1ETyJW1RC_VrJiiN4LAn4iIojfcIhem0q",
+            "Uber": "https://drive.google.com/drive/folders/1RrbOrRF_niO-800gWJffv6G7gppUWgtJ"
+        };
+        let intSeleccionado = "";
+
+        function seleccionar(nombre, btn) {
+            intSeleccionado = nombre;
+            document.querySelectorAll('.btn-int').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
         }
-    </script>
-</body>
-</html>
+
+        function registrar() {
+            if (!intSeleccionado) {
+                alert("¡Por favor selecciona un integrador primero!");
+                return;
+            }
+            const pedido = document.getElementById("nPedido").value;
+            if (!pedido) {
+                alert("Por favor ingresa el N° de pedido");
+                return;
+            }
+            
+            // Abre la carpeta específica en una nueva pestaña
+            window.open(LINKS[intSeleccionado], '_blank');
+        }
+    </script
