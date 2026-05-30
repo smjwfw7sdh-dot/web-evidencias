@@ -12,211 +12,40 @@
             --bk-orange: #F47321;
             --bk-gold: #FFB81C;
             --bg-card: #FFFFFF;
-            
-            /* Colores Oficiales Integradores */
             --peya-red: #E01A4F;
             --rappi-orange: #FF441F;
             --uber-black: #000000;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial Black', sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Arial Black', sans-serif; }
+        body { background-color: var(--bk-cream); color: var(--bk-brown); padding: 15px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .container { width: 100%; max-width: 550px; background: var(--bg-card); border: 3px solid var(--bk-brown); border-radius: 16px; padding: 20px; box-shadow: 0 8px 0px var(--bk-brown); }
+        h2 { text-align: center; color: var(--bk-orange); font-size: 22px; margin-bottom: 20px; text-transform: uppercase; border-bottom: 3px dashed var(--bk-brown); padding-bottom: 10px; }
 
-        body {
-            background-color: var(--bk-cream);
-            color: var(--bk-brown);
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
+        label { display: block; font-weight: bold; margin-bottom: 8px; color: var(--bk-brown); font-size: 14px; text-transform: uppercase; }
+        select, input[type="text"] { width: 100%; padding: 14px; border: 2px solid var(--bk-brown); border-radius: 8px; background-color: var(--bk-cream); color: var(--bk-brown); font-size: 16px; font-weight: bold; margin-bottom: 15px; outline: none; }
 
-        .container {
-            width: 100%;
-            max-width: 550px;
-            background: var(--bg-card);
-            border: 3px solid var(--bk-brown);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 8px 0px var(--bk-brown);
-        }
-
-        h2 {
-            text-align: center;
-            color: var(--bk-orange);
-            font-size: 22px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 3px dashed var(--bk-brown);
-            padding-bottom: 10px;
-        }
-
-        .alert-admin {
-            background-color: #FFF0F0;
-            border: 2px solid var(--bk-red);
-            color: var(--bk-red);
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 15px;
-            display: none;
-            font-size: 13px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: var(--bk-brown);
-            font-size: 14px;
-            text-transform: uppercase;
-        }
-
-        select, input[type="text"], textarea {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid var(--bk-brown);
-            border-radius: 8px;
-            background-color: var(--bk-cream);
-            color: var(--bk-brown);
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            outline: none;
-        }
-
-        /* Botonera de Integradores */
-        .delivery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 18px;
-        }
-
-        .btn-delivery {
-            padding: 15px 5px;
-            font-size: 12px;
-            color: white;
-            border: 2px solid var(--bk-brown);
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-            font-weight: bold;
-            text-transform: uppercase;
-            box-shadow: 0 4px 0 var(--bk-brown);
-            transition: transform 0.1s, box-shadow 0.1s;
-        }
-        .btn-delivery:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--bk-brown); }
+        .delivery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+        .btn-delivery { padding: 15px 5px; font-size: 12px; color: white; border: 2px solid var(--bk-brown); border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold; text-transform: uppercase; box-shadow: 0 4px 0 var(--bk-brown); transition: transform 0.1s; }
+        .btn-delivery:active { transform: translateY(3px); }
         .peya { background-color: var(--peya-red); }
         .rappi { background-color: var(--rappi-orange); }
         .uber { background-color: var(--uber-black); }
+        .btn-delivery.selected { border: 4px solid var(--bk-gold); transform: scale(0.95); }
 
-        .btn-delivery.selected {
-            border: 4px solid var(--bk-gold);
-            transform: scale(0.95);
-            box-shadow: inset 0 4px 6px rgba(0,0,0,0.3);
-        }
-
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        button {
-            width: 100%;
-            padding: 16px;
-            border: 2px solid var(--bk-brown);
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-            box-shadow: 0 4px 0 var(--bk-brown);
-            transition: transform 0.1s, box-shadow 0.1s;
-        }
-
-        button:active {
-            transform: translateY(4px);
-            box-shadow: 0 0px 0 var(--bk-brown);
-        }
-
+        .btn-group { display: flex; flex-direction: column; gap: 10px; }
+        button { width: 100%; padding: 16px; border: 2px solid var(--bk-brown); border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 0 var(--bk-brown); }
+        button:active { transform: translateY(4px); }
         .btn-submit { background-color: var(--bk-orange); color: white; }
         .btn-export { background-color: var(--bk-gold); color: var(--bk-brown); }
         .btn-clear-all { background-color: #7A7A7A; color: white; }
 
-        /* SECCIÓN TABLA EN VIVO */
-        .table-container {
-            width: 100%;
-            max-width: 550px;
-            background: white;
-            border: 3px solid var(--bk-brown);
-            border-radius: 16px;
-            padding: 15px;
-            box-shadow: 0 8px 0px var(--bk-brown);
-            overflow-x: auto;
-        }
-
-        .table-title {
-            font-size: 16px;
-            color: var(--bk-brown);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            border-bottom: 2px solid var(--bk-orange);
-            padding-bottom: 5px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 12px;
-        }
-
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid #DDD;
-            white-space: nowrap;
-        }
-
-        th {
-            background-color: var(--bk-cream);
-            color: var(--bk-brown);
-            text-transform: uppercase;
-        }
-
-        .btn-delete {
-            background-color: var(--bk-red);
-            color: white;
-            border: 1px solid var(--bk-brown);
-            padding: 4px 8px;
-            font-size: 10px;
-            border-radius: 4px;
-            box-shadow: none;
-            width: auto;
-            cursor: pointer;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--bk-brown);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-weight: bold;
-            display: none;
-            z-index: 1000;
-        }
+        .table-container { width: 100%; max-width: 550px; background: white; border: 3px solid var(--bk-brown); border-radius: 16px; padding: 15px; box-shadow: 0 8px 0px var(--bk-brown); overflow-x: auto; }
+        .table-title { font-size: 16px; color: var(--bk-brown); margin-bottom: 12px; text-transform: uppercase; border-bottom: 2px solid var(--bk-orange); padding-bottom: 5px; }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        th, td { padding: 10px; border-bottom: 1px solid #DDD; }
+        .btn-delete { background-color: var(--bk-red); color: white; border: 1px solid var(--bk-brown); padding: 4px 8px; font-size: 10px; border-radius: 4px; cursor: pointer; }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: var(--bk-brown); color: white; padding: 12px 25px; border-radius: 25px; font-weight: bold; display: none; }
     </style>
 </head>
 <body>
@@ -224,23 +53,17 @@
     <div class="container">
         <h2>📦 Evidencias Delivery</h2>
         
-        <div id="alertAdmin" class="alert-admin">
-            ⚠️ ACCESO LIMITADO: No posees permisos para exportar el CSV ni limpiar el historial.
-        </div>
-
         <form id="deliveryForm">
-            <!-- LISTA EXCLUSIVA DE LIDERAZGO (GERENCIAL DE TURNO) -->
             <label for="responsable">Gerencial de Turno</label>
-            <select id="responsable" required onchange="evaluarRol()">
+            <select id="responsable" required>
                 <option value="" disabled selected>-- Selecciona quién está a cargo --</option>
-                <option value="Christopher López" data-permiso="CONCEDIDO">Christopher López (Gerente)</option>
-                <option value="Yennifer Franco" data-permiso="DENEGADO">Yennifer Franco (Subgerente)</option>
-                <option value="Matías Pizarro" data-permiso="CONCEDIDO">Matías Pizarro (Administrador)</option>
-                <option value="Paola Martínez" data-permiso="DENEGADO">Paola Martínez (Administrador)</option>
-                <option value="Ivannia Escobar" data-permiso="DENEGADO">Ivannia Escobar (Administrador)</option>
+                <option value="Christopher López">Christopher López</option>
+                <option value="Yennifer Franco">Yennifer Franco</option>
+                <option value="Matías Pizarro">Matías Pizarro</option>
+                <option value="Paola Martínez">Paola Martínez</option>
+                <option value="Ivannia Escobar">Ivannia Escobar</option>
             </select>
 
-            <!-- TURNOS SOLICITADOS -->
             <label for="turno">Turno</label>
             <select id="turno" required>
                 <option value="AM">AM (Apertura)</option>
@@ -249,7 +72,7 @@
             </select>
 
             <label for="nPedido">Número de Pedido / Orden</label>
-            <input type="text" id="nPedido" placeholder="Ej: #4512 o código comanda" required>
+            <input type="text" id="nPedido" placeholder="Ej: #4512" required>
 
             <label>Integrador (Toca uno para abrir su Drive)</label>
             <div class="delivery-grid">
@@ -258,40 +81,25 @@
                 <div id="btnUber" class="btn-delivery uber" onclick="seleccionarIntegrador('Uber Eats', this)">Uber Eats</div>
             </div>
 
-            <label for="detalles">Notas o Comentarios (Opcional)</label>
-            <textarea id="detalles" rows="2" placeholder="Notas sobre el reclamo, faltante, etc..."></textarea>
-
             <div class="btn-group">
                 <button type="submit" class="btn-submit">📸 Registrar y Abrir Drive</button>
-                <button type="button" id="btnExport" class="btn-export" onclick="exportarCSV()" style="display:none;">📥 Exportar CSV de Pedidos (Excel)</button>
-                <button type="button" id="btnClear" class="btn-clear-all" onclick="borrarTodo()" style="display:none;">🗑️ Vaciar Historial Local</button>
+                <button type="button" class="btn-export" onclick="exportarCSV()">📥 Exportar CSV</button>
+                <button type="button" class="btn-clear-all" onclick="borrarTodo()">🗑️ Vaciar Historial</button>
             </div>
         </form>
     </div>
 
-    <!-- CUADRO DE REGISTROS DESGLOSADOS EN VIVO -->
     <div class="table-container">
         <div class="table-title">📋 Historial de Fotos en esta Tablet</div>
         <table id="deliveryTable">
-            <thead>
-                <tr>
-                    <th>Hora</th>
-                    <th>Pedido</th>
-                    <th>Integrador</th>
-                    <th>Gerencial</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Carga dinámica -->
-            </tbody>
+            <thead><tr><th>Hora</th><th>Pedido</th><th>Integrador</th><th>Gerencial</th><th>Acción</th></tr></thead>
+            <tbody></tbody>
         </table>
     </div>
 
     <div id="toast" class="toast"></div>
 
     <script>
-        // Enlaces de Google Drive de la tienda
         const DRIVE_LINKS = {
             "Pedidos Ya": "https://drive.google.com/drive/folders/1OzFJMbSY6xZZXGGq--sUJVqgkLX4tT_D",
             "Rappi": "https://drive.google.com/drive/folders/1ETyJW1RC_VrJiiN4LAn4iIojfcIhem0q",
@@ -301,16 +109,7 @@
         let integradorGlobal = "";
         let deliveryData = JSON.parse(localStorage.getItem("bk_disputas_local")) || [];
 
-        window.onload = function() {
-            // Inteligencia para preseleccionar turnos automáticamente
-            const hora = new Date().getHours();
-            const comboTurno = document.getElementById("turno");
-            if (hora >= 6 && hora < 14) comboTurno.value = "AM";
-            else if (hora >= 14 && hora < 22) comboTurno.value = "PM";
-            else comboTurno.value = "Trasnoche";
-            
-            actualizarTabla();
-        };
+        window.onload = () => { actualizarTabla(); };
 
         function seleccionarIntegrador(int, elemento) {
             integradorGlobal = int;
@@ -318,13 +117,9 @@
             elemento.classList.add('selected');
         }
 
-        document.getElementById("deliveryForm").addEventListener("submit", function(e) {
+        document.getElementById("deliveryForm").addEventListener("submit", (e) => {
             e.preventDefault();
-
-            if(!integradorGlobal) {
-                alert("🚨 Por favor, selecciona un integrador pulsando el botón (PedidosYa, Rappi o Uber Eats) antes de continuar.");
-                return;
-            }
+            if(!integradorGlobal) { alert("🚨 Selecciona un integrador primero."); return; }
 
             const nuevaDisputa = {
                 id: Date.now(),
@@ -332,123 +127,49 @@
                 responsable: document.getElementById("responsable").value,
                 turno: document.getElementById("turno").value,
                 pedido: document.getElementById("nPedido").value,
-                integrador: integradorGlobal,
-                detalles: document.getElementById("detalles").value || "-"
+                integrador: integradorGlobal
             };
 
             deliveryData.push(nuevaDisputa);
             localStorage.setItem("bk_disputas_local", JSON.stringify(deliveryData));
-            
             actualizarTabla();
-            evaluarRol();
-            showToast("📸 Guardando datos... Abriendo carpeta Drive");
-
-            // Abre el Drive de la tienda según el integrador pulsado
-            setTimeout(() => {
-                window.open(DRIVE_LINKS[integradorGlobal], '_blank');
-                
-                // Limpiar campos para la siguiente orden
-                document.getElementById("nPedido").value = "";
-                document.getElementById("detalles").value = "";
-                document.querySelectorAll('.btn-delivery').forEach(b => b.classList.remove('selected'));
-                integradorGlobal = "";
-            }, 1000);
+            showToast("📸 Guardando...");
+            setTimeout(() => { window.open(DRIVE_LINKS[integradorGlobal], '_blank'); }, 500);
         });
 
         function actualizarTabla() {
             const tbody = document.querySelector("#deliveryTable tbody");
             tbody.innerHTML = "";
-
             deliveryData.forEach(item => {
-                let horaCorta = item.fecha.split(" ")[1] || item.fecha;
-                let row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${horaCorta}</td>
-                    <td><strong>${item.pedido}</strong></td>
-                    <td>${item.integrador}</td>
-                    <td>${item.responsable.split(" ")[0]}</td>
-                    <td><button class="btn-delete" onclick="eliminarRegistro(${item.id})">Borrar</button></td>
-                `;
-                tbody.appendChild(row);
+                tbody.innerHTML += `<tr><td>${item.fecha.split(" ")[1]}</td><td><strong>${item.pedido}</strong></td><td>${item.integrador}</td><td>${item.responsable.split(" ")[0]}</td><td><button class="btn-delete" onclick="eliminarRegistro(${item.id})">Borrar</button></td></tr>`;
             });
         }
 
         function eliminarRegistro(id) {
-            if(confirm("¿Remover este registro del cuadro?")) {
-                deliveryData = deliveryData.filter(item => item.id !== id);
-                localStorage.setItem("bk_disputas_local", JSON.stringify(deliveryData));
-                actualizarTabla();
-                evaluarRol();
-                showToast("🗑️ Registro eliminado");
-            }
-        }
-
-        function evaluarRol() {
-            const combo = document.getElementById("responsable");
-            if(!combo.value) return;
-            const permiso = combo.options[combo.selectedIndex].getAttribute('data-permiso');
-            
-            const alertAdmin = document.getElementById("alertAdmin");
-            const btnExport = document.getElementById("btnExport");
-            const btnClear = document.getElementById("btnClear");
-
-            if (permiso === "CONCEDIDO") {
-                alertAdmin.style.display = "none";
-                if(deliveryData.length > 0) {
-                    btnExport.style.display = "block";
-                    btnClear.style.display = "block";
-                }
-            } else {
-                alertAdmin.style.display = "block";
-                btnExport.style.display = "none";
-                btnClear.style.display = "none";
-            }
+            deliveryData = deliveryData.filter(item => item.id !== id);
+            localStorage.setItem("bk_disputas_local", JSON.stringify(deliveryData));
+            actualizarTabla();
         }
 
         function borrarTodo() {
-            if(confirm("🚨 ¿Seguro que deseas vaciar por completo el cuadro de esta tablet?")) {
+            if(confirm("¿Vaciar historial?")) {
                 deliveryData = [];
                 localStorage.removeItem("bk_disputas_local");
                 actualizarTabla();
-                evaluarRol();
-                showToast("💥 Historial completamente vaciado");
             }
         }
 
         function exportarCSV() {
-            if(deliveryData.length === 0) return;
-
-            let csvContent = "\uFEFFsep=;\n";
-            csvContent += "Fecha y Hora;Gerencial_De_Turno;Turno;N_Pedido;Integrador;Notas_Adicionales\n";
-
-            deliveryData.forEach(item => {
-                let fila = [
-                    item.fecha,
-                    item.responsable,
-                    item.turno,
-                    item.pedido,
-                    item.integrador,
-                    item.detalles
-                ].map(texto => `"${texto.replace(/"/g, '""')}"`).join(";");
-                csvContent += fila + "\n";
-            });
-
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            let csvContent = "Fecha;Gerencial;Turno;Pedido;Integrador\n" + deliveryData.map(i => `${i.fecha};${i.responsable};${i.turno};${i.pedido};${i.integrador}`).join("\n");
+            const blob = new Blob([csvContent], { type: 'text/csv' });
             const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.setAttribute("href", url);
-            link.setAttribute("download", `Evidencias_Delivery_LasRastras_${new Date().toISOString().slice(0,10)}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            showToast("📥 Descargando archivo CSV...");
+            const a = document.createElement("a"); a.href = url; a.download = "historial_delivery.csv"; a.click();
         }
 
         function showToast(msj) {
             const toast = document.getElementById("toast");
-            toast.textContent = msj;
-            toast.style.display = "block";
-            setTimeout(() => { toast.style.display = "none"; }, 3000);
+            toast.textContent = msj; toast.style.display = "block";
+            setTimeout(() => { toast.style.display = "none"; }, 2000);
         }
     </script>
 </body>
