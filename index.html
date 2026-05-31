@@ -9,7 +9,9 @@
         #video { width: 100%; max-width: 400px; border-radius: 10px; background: #000; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; }
         input, select, button { width: 100%; max-width: 400px; padding: 15px; margin: 5px 0; font-size: 16px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; }
         button { background: #007bff; color: white; border: none; font-weight: bold; cursor: pointer; }
-        #btnCapturar { background: #28a745; display: none; } /* Oculto hasta que se encienda la cámara */
+        #btnCapturar { background: #28a745; }
+        .contenedor-formulario { margin-top: 30px; opacity: 0.6; } /* Formulario secundario */
+        iframe { width: 100%; max-width: 400px; height: 300px; border: none; }
     </style>
 </head>
 <body>
@@ -17,17 +19,48 @@
     <h2>📸 Captura de Evidencia</h2>
     <video id="video" autoplay playsinline></video>
     
-    <button id="btnActivar">ENCENDER CÁMARA</button>
+    <button id="btnActivar">1. ENCENDER CÁMARA</button>
+    <button id="btnCapturar">2. TOMAR FOTO</button>
     
-    <input type="number" id="codigoPedido" placeholder="4 últimos dígitos" maxlength="4">
-    
+    <input type="number" id="codigoPedido" placeholder="4 últimos dígitos">
     <select id="integrador">
         <option value="PedidosYa">PedidosYa</option>
         <option value="Rappi">Rappi</option>
         <option value="UberEats">UberEats</option>
     </select>
 
-    <button id="btnCapturar">GUARDAR EVIDENCIA</button>
+    <div class="contenedor-formulario">
+        <p>Formulario de respaldo:</p>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeu6y5kGk8O9H9wW8z7S3wXz9S0x9t1V4w7R8Q9uWkI-Kx-zQ/viewform?embedded=true"></iframe>
+    </div>
 
     <script>
-        const SCRIPT_URL = '
+        const video = document.getElementById('video');
+        const btnActivar = document.getElementById('btnActivar');
+        const btnCapturar = document.getElementById('btnCapturar');
+
+        // 1. Activar Cámara
+        btnActivar.addEventListener('click', async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+                video.srcObject = stream;
+                btnActivar.innerText = "Cámara Encendida";
+            } catch (err) {
+                alert("Error al acceder a la cámara: " + err);
+            }
+        });
+
+        // 2. Acción de tomar foto
+        btnCapturar.addEventListener('click', () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            const dataUrl = canvas.toDataURL('image/png');
+            
+            alert("Foto capturada. Ahora asegúrate de completar el formulario abajo para enviarla.");
+            console.log("Foto lista para ser procesada.");
+        });
+    </script>
+</body>
+</html>
