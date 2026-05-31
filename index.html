@@ -28,8 +28,8 @@
 
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbznSPX3E3-n7kLjy8DffHvW4I2JFRyVpXfue7x9Gs9__I8fgSyIdapSSgaorP1lFybA/exec';
+        
         const video = document.getElementById('video');
-
         navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
             .catch(() => navigator.mediaDevices.getUserMedia({ video: true }))
             .then(stream => { video.srcObject = stream; });
@@ -40,32 +40,4 @@
             canvas.height = video.videoHeight;
             canvas.getContext('2d').drawImage(video, 0, 0);
 
-            const base64Image = canvas.toDataURL('image/jpeg').split(',')[1];
-            const codigo = document.getElementById('codigoPedido').value;
-            const integrador = document.getElementById('integrador').value;
-
-            if(codigo.length < 4) { alert("Ingresa los 4 dígitos"); return; }
-
-            const btn = document.getElementById('btnCapturar');
-            btn.innerText = "Enviando...";
-            btn.disabled = true;
-
-            try {
-                await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors', // Importante para evitar el bloqueo del navegador
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ data: base64Image, filename: codigo + "_" + integrador + ".jpg", integrador: integrador })
-                });
-                alert('¡Evidencia guardada correctamente!');
-                document.getElementById('codigoPedido').value = '';
-            } catch (error) {
-                alert('Error al guardar. Verifica la conexión.');
-            } finally {
-                btn.innerText = "GUARDAR EVIDENCIA";
-                btn.disabled = false;
-            }
-        });
-    </script>
-</body>
-</html>
+            const base
