@@ -3,174 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Evidencias Delivery - Las Rastras</title>
+    <title>Evidencias Delivery - Captura Rápida</title>
     <style>
-        :root {
-            --bk-cream: #FDF6E2;
-            --bk-brown: #502314;
-            --bk-red: #DA291C;
-            --bk-orange: #F47321;
-            --bk-gold: #FFB81C;
-            --bg-card: #FFFFFF;
-            --peya-red: #E01A4F;
-            --rappi-orange: #FF441F;
-            --uber-black: #000000;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Arial Black', sans-serif; }
-        body { background-color: var(--bk-cream); color: var(--bk-brown); padding: 15px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .container { width: 100%; max-width: 550px; background: var(--bg-card); border: 3px solid var(--bk-brown); border-radius: 16px; padding: 20px; box-shadow: 0 8px 0px var(--bk-brown); }
-        h2 { text-align: center; color: var(--bk-orange); font-size: 22px; margin-bottom: 20px; text-transform: uppercase; border-bottom: 3px dashed var(--bk-brown); padding-bottom: 10px; }
-
-        label { display: block; font-weight: bold; margin-bottom: 8px; color: var(--bk-brown); font-size: 14px; text-transform: uppercase; }
-        select, input[type="text"] { width: 100%; padding: 14px; border: 2px solid var(--bk-brown); border-radius: 8px; background-color: var(--bk-cream); color: var(--bk-brown); font-size: 16px; font-weight: bold; margin-bottom: 15px; outline: none; }
-
-        .delivery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
-        .btn-delivery { padding: 15px 5px; font-size: 12px; color: white; border: 2px solid var(--bk-brown); border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold; text-transform: uppercase; box-shadow: 0 4px 0 var(--bk-brown); transition: transform 0.1s; }
-        .btn-delivery:active { transform: translateY(3px); }
-        .peya { background-color: var(--peya-red); }
-        .rappi { background-color: var(--rappi-orange); }
-        .uber { background-color: var(--uber-black); }
-        .btn-delivery.selected { border: 4px solid var(--bk-gold); transform: scale(0.95); }
-
-        .btn-group { display: flex; flex-direction: column; gap: 10px; }
-        button { width: 100%; padding: 16px; border: 2px solid var(--bk-brown); border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 0 var(--bk-brown); }
-        button:active { transform: translateY(4px); }
-        .btn-submit { background-color: var(--bk-orange); color: white; }
-        .btn-export { background-color: var(--bk-gold); color: var(--bk-brown); }
-        .btn-clear-all { background-color: #7A7A7A; color: white; }
-
-        .table-container { width: 100%; max-width: 550px; background: white; border: 3px solid var(--bk-brown); border-radius: 16px; padding: 15px; box-shadow: 0 8px 0px var(--bk-brown); overflow-x: auto; }
-        .table-title { font-size: 16px; color: var(--bk-brown); margin-bottom: 12px; text-transform: uppercase; border-bottom: 2px solid var(--bk-orange); padding-bottom: 5px; }
-        table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        th, td { padding: 10px; border-bottom: 1px solid #DDD; }
-        .btn-delete { background-color: var(--bk-red); color: white; border: 1px solid var(--bk-brown); padding: 4px 8px; font-size: 10px; border-radius: 4px; cursor: pointer; }
-        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: var(--bk-brown); color: white; padding: 12px 25px; border-radius: 25px; font-weight: bold; display: none; }
+        body { font-family: sans-serif; text-align: center; padding: 10px; background: #f0f0f0; }
+        #video { width: 100%; max-width: 500px; border-radius: 10px; background: #000; }
+        .controls { margin-top: 15px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+        input, select, button { width: 90%; max-width: 400px; padding: 15px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc; }
+        button { background: #28a745; color: white; border: none; font-weight: bold; cursor: pointer; }
+        button:active { background: #218838; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>📦 Evidencias Delivery</h2>
+    <h2>📸 Registro de Evidencia</h2>
+    <video id="video" autoplay playsinline></video>
+    
+    <div class="controls">
+        <input type="number" id="codigoPedido" placeholder="4 últimos dígitos del pedido" maxlength="4" required>
         
-        <form id="deliveryForm">
-            <label for="responsable">Gerencial de Turno</label>
-            <select id="responsable" required>
-                <option value="" disabled selected>-- Selecciona quién está a cargo --</option>
-                <option value="Christopher López">Christopher López</option>
-                <option value="Yennifer Franco">Yennifer Franco</option>
-                <option value="Matías Pizarro">Matías Pizarro</option>
-                <option value="Paola Martínez">Paola Martínez</option>
-                <option value="Ivannia Escobar">Ivannia Escobar</option>
-            </select>
+        <select id="integrador">
+            <option value="PedidosYa">PedidosYa</option>
+            <option value="Rappi">Rappi</option>
+            <option value="UberEats">UberEats</option>
+        </select>
 
-            <label for="turno">Turno</label>
-            <select id="turno" required>
-                <option value="AM">AM (Apertura)</option>
-                <option value="PM">PM (Tarde)</option>
-                <option value="Trasnoche">Trasnoche (Cierre)</option>
-            </select>
-
-            <label for="nPedido">Número de Pedido / Orden</label>
-            <input type="text" id="nPedido" placeholder="Ej: #4512" required>
-
-            <label>Integrador (Toca uno para abrir su Drive)</label>
-            <div class="delivery-grid">
-                <div id="btnPeya" class="btn-delivery peya" onclick="seleccionarIntegrador('Pedidos Ya', this)">PedidosYa</div>
-                <div id="btnRappi" class="btn-delivery rappi" onclick="seleccionarIntegrador('Rappi', this)">Rappi</div>
-                <div id="btnUber" class="btn-delivery uber" onclick="seleccionarIntegrador('Uber Eats', this)">Uber Eats</div>
-            </div>
-
-            <div class="btn-group">
-                <button type="submit" class="btn-submit">📸 Registrar y Abrir Drive</button>
-                <button type="button" class="btn-export" onclick="exportarCSV()">📥 Exportar CSV</button>
-                <button type="button" class="btn-clear-all" onclick="borrarTodo()">🗑️ Vaciar Historial</button>
-            </div>
-        </form>
+        <button id="btnCapturar">CAPTURAR Y GUARDAR</button>
     </div>
-
-    <div class="table-container">
-        <div class="table-title">📋 Historial de Fotos en esta Tablet</div>
-        <table id="deliveryTable">
-            <thead><tr><th>Hora</th><th>Pedido</th><th>Integrador</th><th>Gerencial</th><th>Acción</th></tr></thead>
-            <tbody></tbody>
-        </table>
-    </div>
-
-    <div id="toast" class="toast"></div>
 
     <script>
-        const DRIVE_LINKS = {
-            "Pedidos Ya": "https://drive.google.com/drive/folders/1OzFJMbSY6xZZXGGq--sUJVqgkLX4tT_D",
-            "Rappi": "https://drive.google.com/drive/folders/1ETyJW1RC_VrJiiN4LAn4iIojfcIhem0q",
-            "Uber Eats": "https://drive.google.com/drive/folders/1RrbOrRF_niO-800gWJffv6G7gppUWgtJ"
-        };
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbySG_RlBhXahEEYVP21C-dzz_Uu0WdK9GRHsxnioHSVv2eLqQ34bQpVtCz10sA-K4t4qA/exec';
 
-        let integradorGlobal = "";
-        let deliveryData = JSON.parse(localStorage.getItem("bk_disputas_local")) || [];
+        const video = document.getElementById('video');
+        
+        // Iniciar cámara trasera
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
+            .catch(() => navigator.mediaDevices.getUserMedia({ video: true }))
+            .then(stream => { video.srcObject = stream; });
 
-        window.onload = () => { actualizarTabla(); };
+        document.getElementById('btnCapturar').addEventListener('click', async () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
 
-        function seleccionarIntegrador(int, elemento) {
-            integradorGlobal = int;
-            document.querySelectorAll('.btn-delivery').forEach(b => b.classList.remove('selected'));
-            elemento.classList.add('selected');
-        }
+            const base64Image = canvas.toDataURL('image/jpeg').split(',')[1];
+            const codigo = document.getElementById('codigoPedido').value;
+            const integrador = document.getElementById('integrador').value;
 
-        document.getElementById("deliveryForm").addEventListener("submit", (e) => {
-            e.preventDefault();
-            if(!integradorGlobal) { alert("🚨 Selecciona un integrador primero."); return; }
+            if(codigo.length < 4) { alert("Por favor ingresa los 4 dígitos del pedido"); return; }
 
-            const nuevaDisputa = {
-                id: Date.now(),
-                fecha: new Date().toLocaleString('es-CL'),
-                responsable: document.getElementById("responsable").value,
-                turno: document.getElementById("turno").value,
-                pedido: document.getElementById("nPedido").value,
-                integrador: integradorGlobal
-            };
+            const formData = new FormData();
+            formData.append('data', base64Image);
+            formData.append('filename', `${codigo}_${integrador}.jpg`);
+            formData.append('integrador', integrador);
+            formData.append('mimetype', 'image/jpeg');
 
-            deliveryData.push(nuevaDisputa);
-            localStorage.setItem("bk_disputas_local", JSON.stringify(deliveryData));
-            actualizarTabla();
-            showToast("📸 Guardando...");
-            setTimeout(() => { window.open(DRIVE_LINKS[integradorGlobal], '_blank'); }, 500);
-        });
-
-        function actualizarTabla() {
-            const tbody = document.querySelector("#deliveryTable tbody");
-            tbody.innerHTML = "";
-            deliveryData.forEach(item => {
-                tbody.innerHTML += `<tr><td>${item.fecha.split(" ")[1]}</td><td><strong>${item.pedido}</strong></td><td>${item.integrador}</td><td>${item.responsable.split(" ")[0]}</td><td><button class="btn-delete" onclick="eliminarRegistro(${item.id})">Borrar</button></td></tr>`;
-            });
-        }
-
-        function eliminarRegistro(id) {
-            deliveryData = deliveryData.filter(item => item.id !== id);
-            localStorage.setItem("bk_disputas_local", JSON.stringify(deliveryData));
-            actualizarTabla();
-        }
-
-        function borrarTodo() {
-            if(confirm("¿Vaciar historial?")) {
-                deliveryData = [];
-                localStorage.removeItem("bk_disputas_local");
-                actualizarTabla();
+            alert("Guardando, espera un segundo...");
+            
+            try {
+                await fetch(SCRIPT_URL, { method: 'POST', body: formData });
+                alert('¡Evidencia guardada con éxito!');
+                document.getElementById('codigoPedido').value = ''; // Limpiar campo
+            } catch (error) {
+                alert('Error al guardar: ' + error);
             }
-        }
-
-        function exportarCSV() {
-            let csvContent = "Fecha;Gerencial;Turno;Pedido;Integrador\n" + deliveryData.map(i => `${i.fecha};${i.responsable};${i.turno};${i.pedido};${i.integrador}`).join("\n");
-            const blob = new Blob([csvContent], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a"); a.href = url; a.download = "historial_delivery.csv"; a.click();
-        }
-
-        function showToast(msj) {
-            const toast = document.getElementById("toast");
-            toast.textContent = msj; toast.style.display = "block";
-            setTimeout(() => { toast.style.display = "none"; }, 2000);
-        }
+        });
     </script>
 </body>
 </html>
