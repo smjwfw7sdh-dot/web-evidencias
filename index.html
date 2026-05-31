@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evidencias Delivery - Captura Rápida</title>
+    <title>Evidencias Delivery</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 10px; background: #f0f0f0; }
-        #video { width: 100%; max-width: 500px; border-radius: 10px; background: #000; }
-        .controls { margin-top: 15px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
-        input, select, button { width: 90%; max-width: 400px; padding: 15px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc; }
+        body { font-family: sans-serif; text-align: center; padding: 20px; background: #f0f0f0; }
+        #video { width: 100%; max-width: 400px; border-radius: 10px; background: #000; margin-bottom: 15px; }
+        .controls { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+        input, select, button { width: 100%; max-width: 400px; padding: 15px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; }
         button { background: #28a745; color: white; border: none; font-weight: bold; cursor: pointer; }
-        button:active { background: #218838; }
     </style>
 </head>
 <body>
 
-    <h2>📸 Registro de Evidencia</h2>
+    <h2>📸 Captura de Evidencia</h2>
     <video id="video" autoplay playsinline></video>
     
     <div class="controls">
-        <input type="number" id="codigoPedido" placeholder="4 últimos dígitos del pedido" maxlength="4" required>
+        <input type="number" id="codigoPedido" placeholder="4 últimos dígitos" maxlength="4" required>
         
         <select id="integrador">
             <option value="PedidosYa">PedidosYa</option>
@@ -27,15 +26,15 @@
             <option value="UberEats">UberEats</option>
         </select>
 
-        <button id="btnCapturar">CAPTURAR Y GUARDAR</button>
+        <button id="btnCapturar">GUARDAR EVIDENCIA</button>
     </div>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbySG_RlBhXahEEYVP21C-dzz_Uu0WdK9GRHsxnioHSVv2eLqQ34bQpVtCz10sA-K4t4qA/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnSiCQtfZrFdJAlLxcPh-sTwgsHdaLJr9maBMgDp_aBzgXV6a_UZvQeFl1pMENrkPWsQ/exec';
 
         const video = document.getElementById('video');
-        
-        // Iniciar cámara trasera
+
+        // Acceso a la cámara trasera
         navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
             .catch(() => navigator.mediaDevices.getUserMedia({ video: true }))
             .then(stream => { video.srcObject = stream; });
@@ -47,27 +46,4 @@
             canvas.getContext('2d').drawImage(video, 0, 0);
 
             const base64Image = canvas.toDataURL('image/jpeg').split(',')[1];
-            const codigo = document.getElementById('codigoPedido').value;
-            const integrador = document.getElementById('integrador').value;
-
-            if(codigo.length < 4) { alert("Por favor ingresa los 4 dígitos del pedido"); return; }
-
-            const formData = new FormData();
-            formData.append('data', base64Image);
-            formData.append('filename', `${codigo}_${integrador}.jpg`);
-            formData.append('integrador', integrador);
-            formData.append('mimetype', 'image/jpeg');
-
-            alert("Guardando, espera un segundo...");
-            
-            try {
-                await fetch(SCRIPT_URL, { method: 'POST', body: formData });
-                alert('¡Evidencia guardada con éxito!');
-                document.getElementById('codigoPedido').value = ''; // Limpiar campo
-            } catch (error) {
-                alert('Error al guardar: ' + error);
-            }
-        });
-    </script>
-</body>
-</html>
+            const codigo
