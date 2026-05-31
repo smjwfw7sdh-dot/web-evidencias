@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evidencias Delivery</title>
+    <title>Captura de Evidencia</title>
     <style>
         body { font-family: sans-serif; text-align: center; padding: 20px; background: #f0f0f0; }
-        #video { width: 100%; max-width: 400px; border-radius: 10px; background: #000; margin-bottom: 15px; }
+        #video { width: 100%; max-width: 400px; border-radius: 10px; background: #000; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; }
         input, select, button { width: 100%; max-width: 400px; padding: 15px; margin: 5px 0; font-size: 16px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; }
-        button { background: #28a745; color: white; border: none; font-weight: bold; cursor: pointer; }
+        button { background: #007bff; color: white; border: none; font-weight: bold; cursor: pointer; }
+        #btnCapturar { background: #28a745; display: none; } /* Oculto hasta que se encienda la cámara */
     </style>
 </head>
 <body>
 
     <h2>📸 Captura de Evidencia</h2>
     <video id="video" autoplay playsinline></video>
+    
+    <button id="btnActivar">ENCENDER CÁMARA</button>
     
     <input type="number" id="codigoPedido" placeholder="4 últimos dígitos" maxlength="4">
     
@@ -27,17 +30,4 @@
     <button id="btnCapturar">GUARDAR EVIDENCIA</button>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbznSPX3E3-n7kLjy8DffHvW4I2JFRyVpXfue7x9Gs9__I8fgSyIdapSSgaorP1lFybA/exec';
-        
-        const video = document.getElementById('video');
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
-            .catch(() => navigator.mediaDevices.getUserMedia({ video: true }))
-            .then(stream => { video.srcObject = stream; });
-
-        document.getElementById('btnCapturar').addEventListener('click', async () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            canvas.getContext('2d').drawImage(video, 0, 0);
-
-            const base
+        const SCRIPT_URL = '
